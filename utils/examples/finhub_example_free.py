@@ -4,7 +4,7 @@ import dotenv
 
 dotenv.load_dotenv()
 # Setup client
-finnhub_client = finnhub.Client(api_key=os.getenv("FINHUB_API_KEY"))
+finnhub_client = finnhub.Client(api_key=os.getenv("FINNHUB_API_KEY"))
 
 # Basic financials
 try:

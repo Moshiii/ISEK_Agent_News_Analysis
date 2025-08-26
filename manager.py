@@ -14,6 +14,7 @@ from local_agents.planner_agent import FinancialSearchItem, FinancialSearchPlan,
 from local_agents.risk_agent import risk_agent
 from local_agents.search_agent import search_agent
 from local_agents.market_agent import market_agent, MarketAnalysisSummary
+from local_agents.news_agent import news_agent, NewsAnalysisSummary
 from local_agents.verifier_agent import VerificationResult, verifier_agent
 from local_agents.writer_agent import FinancialReportData, writer_agent
 from printer import Printer
@@ -48,9 +49,8 @@ class FinancialResearchManager:
             # search_plan = await self._plan_searches(query)
             # search_results = await self._perform_searches(search_plan)
             # market_analysis = await self._market_analysis(query)
-            market_analysis = await self._news_analysis(query)
-            
-            report = await self._write_report(query, market_analysis)
+            news_analysis = await self._news_analysis(query)
+            report = await self._write_report(query, news_analysis)
 
             final_report = f"Report summary\n\n{report.short_summary}"
             self.printer.update_item("final_report", final_report, is_done=True)
@@ -63,9 +63,9 @@ class FinancialResearchManager:
         # print("\n\n=====FOLLOW UP QUESTIONS=====\n\n")
         # print("\n".join(report.follow_up_questions))
         
-    async def _market_analysis(self, query: str) -> MarketAnalysisSummary:
-        result = await Runner.run(market_agent, f"Query: {query}")
-        return result.final_output_as(MarketAnalysisSummary)
+    async def _news_analysis(self, query: str) -> NewsAnalysisSummary:
+        result = await Runner.run(news_agent, f"Query: {query}")
+        return result.final_output_as(NewsAnalysisSummary)
         
 
     async def _plan_searches(self, query: str) -> FinancialSearchPlan:

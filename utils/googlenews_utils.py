@@ -55,7 +55,9 @@ def getNewsData(query, start_date, end_date):
 
     news_results = []
     page = 0
-    while True:
+    max_results = 20
+    
+    while len(news_results) < max_results:
         offset = page * 10
         url = (
             f"https://www.google.com/search?q={query}"
@@ -72,6 +74,10 @@ def getNewsData(query, start_date, end_date):
                 break  # No more results found
 
             for el in results_on_page:
+                # Stop if we've reached the maximum number of results
+                if len(news_results) >= max_results:
+                    break
+                    
                 try:
                     link = el.find("a")["href"]
                     title = el.select_one("div.MBeuO").get_text()
@@ -88,15 +94,13 @@ def getNewsData(query, start_date, end_date):
                         }
                     )
                 except Exception as e:
-                    print(f"Error processing result: {e}")
+                    # print(f"Error processing result: {e}")
                     # If one of the fields is not found, skip this result
                     continue
 
-            # Update the progress bar with the current count of results scraped
-
-            # Check for the "Next" link (pagination)
+            # Check for the "Next" link (pagination) and if we still need more results
             next_link = soup.find("a", id="pnnext")
-            if not next_link:
+            if not next_link or len(news_results) >= max_results:
                 break
 
             page += 1
