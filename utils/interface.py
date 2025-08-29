@@ -12,8 +12,18 @@ import yfinance as yf
 from openai import OpenAI
 from .googlenews_utils import getNewsData
 import dotenv
+from .futurenews_hexun_utils import hexun_news
+
 dotenv.load_dotenv()
 DATA_DIR = os.getenv("DATA_DIR")
+
+def get_hexun_news(query: str = "") -> str:
+    news = hexun_news(query)
+    return news
+
+def get_crypto_rss_feeds(ticker: str = "btc") -> str:
+    news = get_crypto_rss_feeds(ticker)
+    return news
 
 def get_google_news(
     query: Annotated[str, "Query to search with"],
