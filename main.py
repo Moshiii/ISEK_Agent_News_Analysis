@@ -7,7 +7,7 @@ dotenv.load_dotenv()
 
 async def main() -> None:
     # query = input("Enter a financial research query: ")
-    query = "NVDA 2025-08-25"
+    query = "please give me an anaysisi of ethereum news for the past week"
     
     mgr = FinancialResearchManager()
     await mgr.run(query)

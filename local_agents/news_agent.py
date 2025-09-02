@@ -1,6 +1,6 @@
 from pydantic import BaseModel
 import os
-from utils.interface import get_google_news
+from utils.interface import get_google_news, get_crypto_rss_feeds
 from typing import Annotated
 from agents import Agent, function_tool
 import finnhub
@@ -28,6 +28,13 @@ def get_google_news_tool(
     print(f"DEBUG: get_google_news_tool called with query: {query}, curr_date: {curr_date}, look_back_days: {look_back_days}")
     return get_google_news(query, curr_date, look_back_days)
 
+@function_tool
+def get_crypto_rss_feeds_tool(
+    ticker: Annotated[str, "ticker symbol of the crypto asset"],
+):
+    print(f"DEBUG: get_crypto_rss_feeds_tool called with ticker: {ticker}")
+    return get_crypto_rss_feeds(ticker)
+   
 
 
 
@@ -49,5 +56,6 @@ news_agent = Agent(
     instructions=NEWS_PROMPT,
     model="gpt-4o",
     output_type=NewsAnalysisSummary,
-    tools=[finhub_company_news_tool, get_google_news_tool]
+    # tools=[finhub_company_news_tool, get_google_news_tool, get_crypto_rss_feeds_tool]  
+    tools=[get_crypto_rss_feeds_tool]  
 ) 
