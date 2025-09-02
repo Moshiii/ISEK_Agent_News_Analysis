@@ -56,5 +56,6 @@ news_agent = Agent(
     instructions=NEWS_PROMPT,
     model="gpt-4o",
     output_type=NewsAnalysisSummary,
-    tools=[finhub_company_news_tool, get_google_news_tool, get_crypto_rss_feeds_tool]  
+    # tools=[finhub_company_news_tool, get_google_news_tool, get_crypto_rss_feeds_tool]  
+    tools=[get_crypto_rss_feeds_tool]  
 ) 

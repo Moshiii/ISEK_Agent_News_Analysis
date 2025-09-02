@@ -24,7 +24,7 @@ def extract_feed_entries(feed_url: str, max_entries: int = 999) -> List[Dict[str
         return []
 
 
-def get_crypto_rss_feeds(ticker: str = "btc") -> None:
+def crypto_rss_feeds(ticker: str = "btc") -> None:
     example_feeds = [
         "https://cointelegraph.com/rss",
         "https://bitcoinist.com/feed/",
@@ -50,5 +50,4 @@ def get_crypto_rss_feeds(ticker: str = "btc") -> None:
 
     if ticker:
         all_entries = [entry for entry in all_entries if ticker.lower() in entry['title'].lower()]
-
-    print(json.dumps(all_entries, indent=2, ensure_ascii=False)) 
+    return json.dumps(all_entries, indent=2, ensure_ascii=False)

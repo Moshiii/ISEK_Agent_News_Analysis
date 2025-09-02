@@ -13,6 +13,7 @@ from openai import OpenAI
 from .googlenews_utils import getNewsData
 import dotenv
 from .futurenews_hexun_utils import hexun_news
+from .crypto_rss_utils import crypto_rss_feeds
 
 dotenv.load_dotenv()
 DATA_DIR = os.getenv("DATA_DIR")
@@ -22,7 +23,7 @@ def get_hexun_news(query: str = "") -> str:
     return news
 
 def get_crypto_rss_feeds(ticker: str = "btc") -> str:
-    news = get_crypto_rss_feeds(ticker)
+    news = crypto_rss_feeds(ticker)
     return news
 
 def get_google_news(
